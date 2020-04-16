@@ -272,12 +272,6 @@ const progressList= (
     <div id="progress-list">
         <ul>
             <li>
-                Bug Fixes
-                <ul className="text-danger">
-                    Due to the nature of Github Pages and its incompatability with the react-router package, the actual project pages cannot be displayed at this time. They will show a 404 page as described <a href="https://create-react-app.dev/docs/deployment/#notes-on-client-side-routing" className="text-decoration-none">here</a>. I will be moving from Github pages to develop a full stack web application soon so this issue should be fixed then.
-                </ul>
-            </li>
-            <li>
                 Additional Content
                 <ul>
                     Provide more details on each project.
@@ -311,6 +305,9 @@ const progressList= (
                 <ul>
                     <li>
                         Polishing overall look and theme of website.
+                    </li>
+                    <li>
+                        Make website responsive and mobile friendly.
                     </li>
                     <li>
                         Resize carousel images so as to not take up as much screen space for better appearance.

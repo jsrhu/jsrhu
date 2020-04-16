@@ -3,6 +3,10 @@
 // ==== REACT IMPORTS ====
 import React from "react";
 import {
+    Link,
+    NavLink
+} from "react-router-dom";
+import {
     Navbar,
     Nav,
     NavDropdown
@@ -12,39 +16,57 @@ export class NavbarGlobal extends React.Component {
     render() {
         return (
             <Navbar id="navbar" collapseOnSelect variant="dark" bg="dark" expanded sticky="top">
-                <Navbar.Brand href="/">
-                    Joshua Hu
+                <Navbar.Brand>
+                    <NavLink to="/" className="text-decoration-none">Joshua Hu</NavLink>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <NavDropdown title="Portfolio" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/#showcase">
+                            <NavDropdown.Item>
+                            <NavLink to ="/#showcase">
                                 Showcase
+                            </NavLink>
                             </NavDropdown.Item>
-                            <NavDropdown.Item href="/portfolio">
+
+                            <NavDropdown.Item>
+                            <NavLink to="/portfolio">
                                 Portfolio Gallery
+                            </NavLink>
                             </NavDropdown.Item>
+
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/portfolio#software">
+
+                            <NavDropdown.Item>
+                            <NavLink to="/portfolio#software">
                                 Software
+                            </NavLink>
                             </NavDropdown.Item>
-                            <NavDropdown.Item href="portfolio#hardware">
+
+                            <NavDropdown.Item>
+                            <NavLink to="/portfolio#hardware">
                                 Hardware
+                            </NavLink>
                             </NavDropdown.Item>
-                            <NavDropdown.Item hrefl="portfolio#nonTech">
+
+                            <NavDropdown.Item>
+                            <NavLink to="/portfolio#nonTech">
                                 Non-Technical
+                            </NavLink>
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/#summary">
+
+                        <NavLink to="/#summary">
                             About
-                        </Nav.Link>
-                        <Nav.Link href="/#resume">
+                        </NavLink>
+
+                        <NavLink to="/#resume">
                             Resume
-                        </Nav.Link>
-                        <Nav.Link href="/#contact">
+                        </NavLink>
+
+                        <NavLink to="#contact">
                             Find Me Here
-                        </Nav.Link>
+                        </NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
