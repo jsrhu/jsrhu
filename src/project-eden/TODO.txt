@@ -1,0 +1,7 @@
+AUDIO:
+- Source from Spotify
+    - https://developer.spotify.com/documentation/web-playback-sdk/
+
+CONTROLS:
+- Implement basic audio controls for track
+- Implement parameter panel (React/Angular for instant changes)

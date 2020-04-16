@@ -1,0 +1,170 @@
+{
+    "cards":[
+        {
+            "id": 0,
+            "title": "Portfolio Website",
+            "body": "A look at the design and process behind the website you are currently browsing.",
+            "source": "https://github.com/jsrhu/jsrhu.github.io",
+            "projectStatus": "Functional",
+            "category": "Software"
+        },{
+            "id": 1,
+            "title": "Konan",
+            "body": "Framework and API to develop, test, and operate live financial trading strategies.",
+            "source": "https://github.com/jsrhu/konan",
+            "projectStatus": "Functional",
+            "category": "Software"
+        },{
+            "id": 2,
+            "title": "Eden",
+            "body": "Customizable music visualizer and player.",
+            "source": "https://github.com/jsrhu/eden",
+            "projectStatus": "Functional",
+            "category": "Software"
+        },{
+            "id": 3,
+            "title": "The Fire Drones",
+            "body": "Automated fire-fighting drone system for Capstone project.",
+            "source": "",
+            "projectStatus": "Upgrading",
+            "category": "Hardware"
+        },{
+            "id": 4,
+            "title": "Gojira",
+            "body": "Second place winner for the 2017 McMaster Sumobot Beginner Competition.",
+            "source": "",
+            "projectStatus": "Complete",
+            "category": "Hardware"
+        },{
+            "id": 5,
+            "title": "McMaster Makers",
+            "body": "Founded student organization that demonstrates and instructs practical applications of technology to solve real world problems.",
+            "source": "https://www.facebook.com/McMasterMakers/",
+            "projectStatus": "Complete",
+            "category": "NonTech"
+        }
+    ],
+    "projects":[
+        {
+            "id": 0,
+            "title": "Portfolio Website",
+            "summary": "My personal portfolio website. I will showcase projects that I believe are significant, interesting, or otherwise enjoyed working on here. The appearance and functionality will always be subject to change as I learn and grow my skills and knowledge.",
+            "demo": "",
+            "purpose": [
+                "This website was built for three main purposes: first, to display my significant projects in a cohesive collection; two, to give myself a project which would allow me to continually improve my abilities in full-stack web development; three, to develop an evolving product which would reflect my tastes and serve as a technical expression of myself as a software engineer."
+            ],
+            "stack": [
+                "Javascript",
+                "React",
+                "HTML",
+                "CSS",
+                "Bootstrap"
+            ],
+            "milestones": [
+            ],
+            "process": [
+            ],
+            "docs": "",
+            "outcomes": ""
+        },{
+            "id": 1,
+            "title": "Konan",
+            "summary": "Konan is a financial market trading application that allows the user to utilize a system framework to simulate or execute programmed trading strategies by interfacing with a brokerage (Interactive Brokers) and making decisions by processing a variety of data inputs.",
+            "demo": "",
+            "purpose": [
+                "Konan was built as one of the major deliverables during my 12 month internship at QTSCM LLC. The goal of the project was to develop an automated trading system to standardize the development and evaluation of strategies being developed. This was achieved by developing several key sub-systems: a master control; an information broker (interface); an execution broker; and a decision making strategy (algorithm).",
+                "An API wrapper was built around the key calls to the information and execution brokers such that the research team would be able to reliably call data from a variety of sources without having to specify schematics and other supplementary data; this was particularly true of the underlying execution broker's API. Likewise, the remaining architecture was built so that the research team merely had to specify which strategies they would like to run based on the strategies they wrote with the framework. The strategy framework was designed to be flexible in its options (e.g. time based or event based execution) without being complicated, allowing the researcher to simple make data and execution calls when necessary and spend the majority of their efforts designing the strategy itself.",
+                "It was built the Python language to capitalize on its fast prototyping nature, as well as to leverage the research team's familiarity with the language to ease adoption and reduce inertia of developing strategies in the framework."
+            ],
+            "stack": [
+                "Python 2",
+                "pandas"
+            ],
+            "milestones": [
+            ],
+            "process": [
+            ],
+            "docs": "",
+            "outcomes": ""
+        },{
+            "id": 2,
+            "title": "Eden",
+            "summary": "An in browser music visualizer which analyzes the audio media and renders a visualization corresponding to certain analysis values.",
+            "demo": "",
+            "purpose": [
+                "This project is a fun way for me to learn more about Javascript, User Interfaces, interactive web media, and utilizing APIs."
+            ],
+            "stack": [
+                "Javascript",
+                "HTML",
+                "CSS"
+            ],
+            "milestones": [
+            ],
+            "process": [
+            ],
+            "docs": "",
+            "outcomes": ""
+        },{
+            "id": 3,
+            "title": "The Fire Drones",
+            "summary": "The Fire Drones was my Capstone (Final Year Engineering Design Project) that was worked on by myself and my team. Together we conpceptualized, designed, and built an automated fire-fighting drone system.",
+            "demo": "",
+            "purpose": [
+            ],
+            "stack": [
+                "Python",
+                "C++",
+                "Arduino",
+                "Java",
+                "Android"
+            ],
+            "milestones": [
+            ],
+            "process": [
+            ],
+            "docs": "",
+            "outcomes": ""
+        },{
+            "id": 4,
+            "title": "Gojira",
+            "summary": "Gojira was the name of the sumobot that my team and I designed and built to enter in the 2016 Beginner Sumobot Competition. This was a smaller weightclass with stricter requirements on the robots. Using only the stock components we won second place, only being bested by a competitor boasting twice our power output (4 motors vs 2 motors).",
+            "demo": "",
+            "purpose": [
+            ],
+            "stack": [
+                "C++",
+                "Arduino"
+            ],
+            "milestones": [
+            ],
+            "process": [
+            ],
+            "docs": "",
+            "outcomes": ""
+        },{
+            "id": 5,
+            "title": "McMaster Makers",
+            "summary": "McMaster Makers is the student organization which I, along with my co-founder, envisioned, founded, ratified, and operated. It develops the McMaster University student community by facilitating peer-to-peer education in the form of technical projects developed in the local Makerspace. In this way McMaster Makers delivers practical and contextualized technical education while providing participants with their own project prototypes.",
+            "demo": "",
+            "purpose": [
+                "This student organization was founded in order to address the lack of a technical maker community at McMaster University. The university had a burgeoning Makerspace equipped with a laser cutter, several 3D printers, design software, electronic components; everything needed to create prototypes and projects but no cohesive community. The workshops and student activities tangential to purpose of the space also failed to maximally utilize the equipment and services. The education provided was trivial; comprising of tutorials that read like grocery lists: learn to make this LED blink, learn what a for loop is, etc.",
+                "McMaster Makers was my attempt to create a self-sustaining and robust Maker community at McMaster. Our value was that we, as students, developed technical projects that were made relevant and contextualized to real life by addressing a specific problem. A key example of this thinking is an electronic shoe horn that could be easily made adjustable for senior citizens, which was developed by one of our project developers who volunteered at a senior's home where she saw the difficulties that these people faced on a day to day basis.",
+                "In this way we engaged more of our student community, seeing growth in the number of regular users of the space, developed the resources and opportunities, creating industry partnerships and workshops, and increased inter-organizational cooperation by working in collaboration with other student organizations to build commissioned projects as well as organizae and execute large annual events.",
+                "Finally, I decided to tackle the issue of diversity and representation in our engineering clubs through the intential goal of creating a student organization whose members represented the wider world in which they lived in. In this way the participants of our workshops would be exposed to problems which they may not have ever been exposed to or even conceptualized as part of their personal bias. This would then allow those same people to develop solutions and products that provided value to the world at large rather than addressing a much smaller subset of society. I did not wish to enforce quotas of any sort and instead decided to research the opinions of women already in the STEM field. It is here where I came across one woman's annecdotal account and opinoin that girls in general at a younger age (typical secondary to post secondary education ages) are more interested in societal problems which affect people, as opposed to abstracted and isolated technical problems. This reinforced the original misison of the organization and thus became the crux of our recruitment message. I am pleased to say that my theory was at least in part true, with our club membership consisting of ~54% female identifying members compared to the 22% of the entire undergraduate engineering population."
+            ],
+            "purpose1": [
+                "When I was working on my Capstone project The Fire Drones, my group was comprised primarily of software engineers. This meant that we only had 2 members with the hands on ability to construct the custom hardware components that we required; our mechatronics engineer and myself. During this time I used my limited experience to design and solder circuits, assemble hardware, and program microcontrollers, but often found myself lost or making mistakes that could have been easily avoided. This lead me to think that this could have been prevented had there been a solid prototyping student community at the university.",
+                "Following this train of thought, I endeavoured to establish this community before I left my undergraduate career. As I was planning on returning to improve several courses I believed this was the best time to do so."
+            ],
+            "stack": [
+            ],
+            "milestones": [
+            ],
+            "process": [
+            ],
+            "docs": "",
+            "outcomes": ""
+        }
+    ]
+}
