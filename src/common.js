@@ -3,14 +3,194 @@
 // ==== REACT IMPORTS ====
 import React from "react";
 import {
-    Link,
-    NavLink
-} from "react-router-dom";
+    HashLink as Link,
+    NavHashLink as NavLink
+} from "react-router-hash-link";
 import {
     Navbar,
     Nav,
     NavDropdown
 } from "react-bootstrap";
+import {
+    makeStyles,
+    Button,
+    Divider,
+    AppBar,
+    Toolbar,
+    Typography,
+    IconButton,
+    Switch,
+    MenuItem,
+    Menu,
+    MenuList,
+    List,
+    ListItem,
+    ListItemText,
+} from "@material-ui/core";
+import {
+    List as ListIcon,
+    Home as HomeIcon,
+} from "@material-ui/icons";
+
+import theme from "./theme";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1.5,
+    },
+}));
+
+export function AppBarGlobal() {
+    const classes = useStyles(theme);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    /*
+                <MenuList>
+                    <ListItem button>
+                        <ListItemText primary="TEST" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemText primary="TEST2" />
+                    </ListItem>
+                </MenuList>
+    */
+
+    return (
+        <AppBar position="sticky"
+                color="primary"
+        >
+            <Toolbar>
+                <Typography variant="h4"
+                            className={classes.title}
+                >
+                    <Link to="/"
+                            className="text-decoration-none"
+                    >
+                        <IconButton className={classes.title}
+                                size="large"
+                        >
+                            <HomeIcon />
+                            Joshua Hu
+                        </IconButton>
+                    </Link>
+                </Typography>
+                <IconButton aria-controls="portfolio-menu"
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                >
+                    <ListIcon />
+                    Portfolio
+                </IconButton>
+                <Menu id="portfolio-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose}>
+                        <Link to="/#showcase"
+                                className="text-decoration-none"
+                        >
+                            <Button
+                                fullWidth
+                            >
+                                Showcase
+                            </Button>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                        <Link to="/portfolio"
+                                className="text-decoration-none"
+                        >
+                            <Button
+                                fullWidth
+                            >
+                                Gallery
+                            </Button>
+                                </Link>
+                    </MenuItem>
+                    <Divider variant="fullWidth" />
+                    <MenuItem onClick={handleClose}>
+                        <Link 
+                                className="text-decoration-none"
+                        >
+                            <Button
+                                fullWidth
+                                disabled
+                            >
+                                Software
+                            </Button>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                        <Link
+                            className="text-decoration-none"
+                        >
+                            <Button
+                                fullWidth
+                                disabled
+                            >
+                                Hardware
+                            </Button>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                        <Link
+                            className="text-decoration-none"
+                        >
+                            <Button
+                                fullWidth
+                                disabled
+                            >
+                                Non-Technical
+                            </Button>
+                        </Link>
+                    </MenuItem>
+                </Menu>
+
+
+                <Link to="/#summary"
+                        className="text-decoration-none"
+                >
+                    <IconButton>
+                        Summary
+                    </IconButton>
+                </Link>
+
+                <Link to="/#resume"
+                        className="text-decoration-none"
+                >
+                    <IconButton>
+                        Resume
+                    </IconButton>
+                </Link>
+                
+                <Link to="/#contact"
+                        className="text-decoration-none"
+                >
+                    <IconButton>
+                        Contact
+                    </IconButton>
+                </Link>
+            </Toolbar>
+        </AppBar>
+    );
+}
 
 export class NavbarGlobal extends React.Component {
     render() {
@@ -64,7 +244,7 @@ export class NavbarGlobal extends React.Component {
                             Resume
                         </NavLink>
 
-                        <NavLink to="#contact">
+                        <NavLink to="/#contact">
                             Find Me Here
                         </NavLink>
                     </Nav>

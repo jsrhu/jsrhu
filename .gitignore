@@ -1,3 +1,6 @@
+# OSX Hidden directory fil
+.DS_Store
+
 # Logs
 logs
 *.log

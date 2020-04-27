@@ -19,19 +19,25 @@ import {
     Link
 } from "react-router-dom";
 import {
-    Container,
     Row,
     Col,
     Carousel,
     Jumbotron,
     Figure,
-    Button,
-    Tooltip,
-    OverlayTrigger
 } from "react-bootstrap";
+import {
+    ThemeProvider,
+    Typography,
+    Button,
+    Container,
+    Tooltip,
+    Divider
+} from "@material-ui/core";
+import theme from "./theme.js";
 
 // ==== PROJECT IMPORTS ====
 import {
+    AppBarGlobal,
     NavbarGlobal,
     FooterGlobal
 } from "./common";
@@ -139,9 +145,9 @@ function timeIcon() {
 // ==== SHOWCASE COMPONENTS ====
 const showcaseTitle = (
     <div id="showcase-title" className="text-center">
-        <h2>
+        <Typography variant="h3">
             Portfolio Highlights
-        </h2>
+        </Typography>
         <p className="lead">
             Highlights of my <Link to={pathPortfolio} className="text-decoration-none">project portfolio</Link>.
         </p>
@@ -162,9 +168,9 @@ const showcaseContent = (
                     />
                 </Figure>
                 <Carousel.Caption>
-                    <h2>
+                    <Typography>
                         Software
-                    </h2>
+                    </Typography>
                     <p>
                         Software Projects
                     </p>
@@ -180,9 +186,9 @@ const showcaseContent = (
                     />
                 </Figure>
                 <Carousel.Caption>
-                    <h2>
+                    <Typography variant="h2">
                         Hardware
-                    </h2>
+                    </Typography>
                     <p>
                         Hardware Projects
                     </p>
@@ -198,9 +204,9 @@ const showcaseContent = (
                         />
                 </Figure>
                 <Carousel.Caption>
-                    <h2>
+                    <Typography variant="h2">
                         Non-Technical
-                    </h2>
+                    </Typography>
                     <p>
                         Non-Technical Projects
                     </p>
@@ -224,18 +230,20 @@ function Showcase() {
 
 // ==== SUMMARY COMPONENTS ====
 const greeting = (
-    <h1 className="text-center page-header">
+    <Typography variant="h2"
+                align="center"
+    >
         {timeIcon()}
         <br />
         {timeGreeting()}
-    </h1>
+    </Typography>
 );
 
 const summaryTitle = (
     <div id="summary-title">
-        <h2 className="jumbotron-heading">
+        <Typography variant="h3">
             Summary
-        </h2>
+        </Typography>
     </div>
 );
 
@@ -262,9 +270,9 @@ function Summary(props) {
 // ==== WORK IN PROGRESS ====
 const progressTitle = (
     <div id="progress-title">
-        <h2>
+        <Typography variant="h3">
             Work In Progress
-        </h2>
+        </Typography>
     </div>
 );
 
@@ -373,9 +381,9 @@ function Progress(props) {
 // ==== RESUME COMPONENTS ====
 const resumeTitle = (
     <div id="resume-title">
-        <h2>
+        <Typography variant="h3">
             Resume
-        </h2>
+        </Typography>
         <p className="lead">
             My Most Up-To-Date <a href={resumeFile} target="_blank" rel="noopener noreferrer" title="Open In New Tab" className="text-decoration-none">Resume</a>
         </p>
@@ -427,72 +435,61 @@ class Resume extends React.Component {
 // ==== CONTACT COMPONENTS ====
 const contactTitle = (
     <div id="contact-title">
-        <h2>
-            Find Me Here
-        </h2>
+        <Typography variant="h3">
+            Get In Touch
+        </Typography>
     </div>
 );
-
-function renderTabTooltip( props ) {
-    return (
-        <Tooltip {...props}>
-            Open New Tab
-        </Tooltip>
-    );
-}
 
 const contactContent = (
     <div id="contact-content">
         <Container>
             <Row>
                 <Col>
-                    <a href="https://www.linkedin.com/in/jsrhu/"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <Tooltip title="Open New Tab"
+                            leaveDelay="50"
+                            placement="bot"
                     >
-                    <OverlayTrigger
-                        placement="top"
-                        delay={{ show: 100, hide: 150}}
-                        overlay={renderTabTooltip}
+                    <Button href="https://www.linkedin.com/in/jsrhu"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            size="large"
+                            leaveDelay="50"
+                            fullWidth
                     >
-                    <Button variant="outline-primary">
                         LinkedIn
                     </Button>
-                    </OverlayTrigger>
-                    </a>
+                    </Tooltip>
                 </Col>
                 <Col>
-                    <a href="https://github.com/jsrhu"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <Tooltip title="Open New Tab"
+                            leaveDelay="50"
+                            placement="bot"
                     >
-                    <OverlayTrigger
-                        placement="top"
-                        delay={{ show: 100, hide: 150}}
-                        overlay={renderTabTooltip}
+                    <Button href="https://github.com/jsrhu"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            size="large"
+                            fullWidth
                     >
-                    <Button variant="outline-primary">
                         Github
                     </Button>
-                    </OverlayTrigger>
-                    </a>
+                    </Tooltip>
                 </Col>
                 <Col>
-                    <a href="mailto:joshua.s.r.hu@gmail.com?subject=Getting In Touch"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="Open New Mail Tab"
+                    <Tooltip title="Open New Tab"
+                        leaveDelay="50"
+                        placement="bot"
                     >
-                    <OverlayTrigger
-                        placement="top"
-                        delay={{ show: 100, hide: 150}}
-                        overlay={renderTabTooltip}
+                    <Button href="mailto:joshua.s.r.hu@gmail.com?subject=Getting In Touch"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            size="large"
+                            fullWidth
                     >
-                    <Button variant="outline-primary">
                         E-Mail
                     </Button>
-                    </OverlayTrigger>
-                    </a>
+                    </Tooltip>
                 </Col>
             </Row>
         </Container>
@@ -501,9 +498,10 @@ const contactContent = (
 
 function Contact() {
     return (
-        <section id="contact" className="text-center">
+        <section id="contact"
+                align="center">
             {contactTitle}
-            <hr />
+            <Divider variant="middle" />
             {contactContent}
             <br />
         </section>
@@ -531,7 +529,7 @@ function Routes() {
             <Switch>
 
                 <Route path={pathPortfolio}>
-                    <NavbarGlobal />
+                    <AppBarGlobal />
                     <Portfolio
                         cards={project_data.cards}
                     />
@@ -539,7 +537,7 @@ function Routes() {
                 </Route>
 
                 <Route path={pathProjects}>
-                    <NavbarGlobal />
+                    <AppBarGlobal />
                     <RoutesProjects
                         cards={project_data.cards}
                         projects={project_data.projects}
@@ -548,7 +546,7 @@ function Routes() {
                 </ Route>
 
                 <Route path={pathHome}>
-                    <NavbarGlobal />
+                    <AppBarGlobal />
                     <Home />
                     <FooterGlobal />
                 </Route>
@@ -601,7 +599,9 @@ function App() {
 // ==== RENDER ====
 ReactDOM.render(
     <React.StrictMode>
-    <App />
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
