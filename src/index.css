@@ -22,7 +22,7 @@ code {
   max-height: 500px;
 }
 
-.carousel-image:after {
+.carousel-image::before {
   background: linear-gradient((white, black));
 }
 
