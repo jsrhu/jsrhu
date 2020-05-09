@@ -6,11 +6,8 @@ import {
     HashLink as Link,
     NavHashLink as NavLink
 } from "react-router-hash-link";
-import {
-    Navbar,
-    Nav,
-    NavDropdown
-} from "react-bootstrap";
+
+// ==== MATERIAL-UI IMPORTS ====
 import {
     makeStyles,
     Button,
@@ -26,6 +23,7 @@ import {
     List,
     ListItem,
     ListItemText,
+    createMuiTheme,
 } from "@material-ui/core";
 import {
     List as ListIcon,
@@ -33,6 +31,41 @@ import {
 } from "@material-ui/icons";
 
 import theme from "./theme";
+import { 
+    blue,
+    green,
+    orange,
+} from "@material-ui/core/colors";
+
+export const CATEGORIES = [
+    "Software",
+    "Hardware",
+    "NonTech"
+];
+
+export const softwareTheme = createMuiTheme({
+    palette: {
+        secondary: {
+            main: blue[500],
+        },
+    },
+});
+
+export const hardwareTheme = createMuiTheme({
+    palette: {
+        secondary: {
+            main: orange[500],
+        },
+    },
+});
+
+export const nonTechTheme = createMuiTheme({
+    palette: {
+        secondary: {
+            main: green[500],
+        },
+    },
+});
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,7 +115,6 @@ export function AppBarGlobal() {
                             className="text-decoration-none"
                     >
                         <IconButton className={classes.title}
-                                size="large"
                         >
                             <HomeIcon />
                             Joshua Hu
@@ -126,36 +158,33 @@ export function AppBarGlobal() {
                     </MenuItem>
                     <Divider variant="fullWidth" />
                     <MenuItem onClick={handleClose}>
-                        <Link 
+                        <Link to="/portfolio?category=software"
                                 className="text-decoration-none"
                         >
                             <Button
                                 fullWidth
-                                disabled
                             >
                                 Software
                             </Button>
                         </Link>
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
-                        <Link
+                        <Link to="/portfolio?category=hardware"
                             className="text-decoration-none"
                         >
                             <Button
                                 fullWidth
-                                disabled
                             >
                                 Hardware
                             </Button>
                         </Link>
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
-                        <Link
+                        <Link to="/portfolio?category=non-tech"
                             className="text-decoration-none"
                         >
                             <Button
                                 fullWidth
-                                disabled
                             >
                                 Non-Technical
                             </Button>
@@ -192,75 +221,14 @@ export function AppBarGlobal() {
     );
 }
 
-export class NavbarGlobal extends React.Component {
-    render() {
-        return (
-            <Navbar id="navbar" collapseOnSelect variant="dark" bg="dark" expanded sticky="top">
-                <Navbar.Brand>
-                    <NavLink to="/" className="text-decoration-none">Joshua Hu</NavLink>
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavDropdown title="Portfolio" id="basic-nav-dropdown">
-                            <NavDropdown.Item>
-                            <NavLink to ="/#showcase">
-                                Showcase
-                            </NavLink>
-                            </NavDropdown.Item>
-
-                            <NavDropdown.Item>
-                            <NavLink to="/portfolio">
-                                Portfolio Gallery
-                            </NavLink>
-                            </NavDropdown.Item>
-
-                            <NavDropdown.Divider />
-
-                            <NavDropdown.Item>
-                            <NavLink to="/portfolio#software">
-                                Software
-                            </NavLink>
-                            </NavDropdown.Item>
-
-                            <NavDropdown.Item>
-                            <NavLink to="/portfolio#hardware">
-                                Hardware
-                            </NavLink>
-                            </NavDropdown.Item>
-
-                            <NavDropdown.Item>
-                            <NavLink to="/portfolio#nonTech">
-                                Non-Technical
-                            </NavLink>
-                            </NavDropdown.Item>
-                        </NavDropdown>
-
-                        <NavLink to="/#summary">
-                            About
-                        </NavLink>
-
-                        <NavLink to="/#resume">
-                            Resume
-                        </NavLink>
-
-                        <NavLink to="/#contact">
-                            Find Me Here
-                        </NavLink>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        );
-    }
-}
-
 export class FooterGlobal extends React.Component {
     // use <sticky> for fixed at bottom or page; problem is ease of accesibility, user has to scroll all the way to the bottom
     // use <fixed> for fixed at bottom of window; have to add margin for every single page
     render() {
         return (
-            <Navbar id="footer" className="justify-content-between" variant="light" bg="light" sticky="bottom">
-            </Navbar>
+            <AppBar id="footer"
+                    sticky="bottom"
+            />
         );
     }
 }

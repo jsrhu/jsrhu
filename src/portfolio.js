@@ -1,31 +1,95 @@
 // ==== REACT LIBRARIES ====
 import React from 'react';
 import {
-    Link
+    Link,
+    useRouteMatch,
 } from "react-router-dom";
 import {
-    Container,
     Jumbotron,
+} from "react-bootstrap";
+
+import {
+    makeStyles,
+    ThemeProvider,
+    Typography,
+    Container,
+    Grid,
     Button,
     ButtonGroup,
-    ButtonToolbar,
-    Card,
-    Accordion,
-    OverlayTrigger,
-    Tooltip
-} from "react-bootstrap";
+    IconButton,
+    Tooltip,
+    Card as MaterialCard,
+    CardHeader,
+    CardMedia,
+    CardContent,
+    CardActions,
+    Collapse,
+} from "@material-ui/core";
+
+import {
+    Computer as SoftwareIcon,
+    Memory as HardwareIcon,
+    Public as NonTechIcon,
+
+    ExpandMore as ExpandMoreIcon,
+    MoreVert as MoreVertIcon,
+} from "@material-ui/icons";
+import {
+    blue,
+    green,
+    orange,
+} from '@material-ui/core/colors';
+
+import {
+    CATEGORIES,
+    softwareTheme,
+    hardwareTheme,
+    nonTechTheme,
+} from "./common";
+import { isPropertySignature } from 'typescript';
 
 // ==== CONTENT JSX ====
 export class Portfolio extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isHardware: true,
-            isSoftware: true,
-            isNonTech: true,
-            cards: props.cards,
-        };
-        this.masterClick = this.masterClick.bind(this);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const initialCategory = urlParams.get("category");
+
+        switch(initialCategory){
+            case "software":
+                this.state = {
+                    isSoftware: true,
+                    isHardware: false,
+                    isNonTech: false,
+                    cards: props.cards,
+                };
+                break;
+            case "hardware":
+                this.state = {
+                    isSoftware: false,
+                    isHardware: true,
+                    isNonTech: false,
+                    cards: props.cards,
+                }
+                break;
+            case "non-tech":
+                this.state = {
+                    isSoftware: false,
+                    isHardware: false,
+                    isNonTech: true,
+                    cards: props.cards,
+                }
+                break;
+            default:
+                this.state = {
+                    isHardware: true,
+                    isSoftware: true,
+                    isNonTech: true,
+                    cards: props.cards,
+                };
+        }
+
         this.toggleSoftware = this.toggleSoftware.bind(this);
         this.toggleHardware = this.toggleHardware.bind(this);
         this.toggleNonTech = this.toggleNonTech.bind(this);
@@ -33,14 +97,6 @@ export class Portfolio extends React.Component {
         this.Title = this.Title.bind(this);
         this.Control = this.Control.bind(this);
         this.Gallery = this.Gallery.bind(this);
-    }
-
-    masterClick() { // TODO: ADAPT TO EACH BUTTON
-        this.setState(state => ({
-            isHardware: !state.isHardware,
-            isSoftware: !state.isSoftware,
-            isNonTech: !state.isNonTech,
-        }));
     }
 
     toggleSoftware() {
@@ -83,16 +139,17 @@ export class Portfolio extends React.Component {
     Title() {
         return (
             <div id="portfolio-title">
-                <h1>
+                <Typography variant="h2">
                     Portfolio Gallery
-                </h1>
+                </Typography>
                 <br />
-                <p className="lead">
+                <Typography variant="subtitle1"
+                >
                     This is an overview of all the projects I have made available on this site.
                     <br />
                     <br />
                     The cards contain high-level information about each project with links to each project's demo, source code, and write-up as applicable. The cards can be filtered using the category togglers below.
-                </p>
+                </Typography>
             </div>
         );
     }
@@ -100,21 +157,36 @@ export class Portfolio extends React.Component {
     Control() {
         return (
             <div id="portfolio-control"
-                className="d-flex flex-column text-center"
             >
-                <ButtonToolbar className="justify-content-center">
-                <ButtonGroup aria-label="toggle-control">
-                    <Button onClick={this.toggleSoftware}>
+                <ButtonGroup aria-label="toggle-control" style={{alignItems: "center,"}}>
+                    <ThemeProvider theme={softwareTheme}>
+                    <Button onClick={this.toggleSoftware}
+                            variant="contained"
+                            color="secondary"
+                    >
+                        <SoftwareIcon />
                         Software: {this.state.isSoftware ? "ON" : "OFF"}
                     </Button>
-                    <Button onClick={this.toggleHardware}>
+                    </ThemeProvider>
+                    <ThemeProvider theme={hardwareTheme}>
+                    <Button onClick={this.toggleHardware}
+                            variant="contained"
+                            color="secondary"
+                    >
+                        <HardwareIcon />
                         Hardware: {this.state.isHardware ? "ON" : "OFF"}
                     </Button>
-                    <Button onClick={this.toggleNonTech}>
+                    </ThemeProvider>
+                    <ThemeProvider theme={nonTechTheme}>
+                    <Button onClick={this.toggleNonTech}
+                            variant="contained"
+                            color="secondary"
+                    >
+                        <NonTechIcon />
                         Non-Technical: {this.state.isNonTech ? "ON" : "OFF"}
                     </Button>
+                    </ThemeProvider>
                 </ButtonGroup>
-                </ButtonToolbar>
             </div>
         );
     }
@@ -123,10 +195,15 @@ export class Portfolio extends React.Component {
         let cardsToRender = [];
         for (let card in cards) { // LOOK INTO CHANGING TO <<map>> FUNCTION TO INCREASE PERFORMANCE
             if (categories.includes(cards[card].category)) {
-                cardsToRender.push(<PortfolioCard
+                cardsToRender.push(<Grid key={cards[card].id}
+                                            item
+                                            xs={6}
+                                    >
+                                        <GalleryCard
                                         card={cards[card]}
-                                        key={cards[card].id}
-                                    />);
+                                        />
+                                    </Grid>
+                                );
             }
         }
 
@@ -137,18 +214,30 @@ export class Portfolio extends React.Component {
         // CURRENTLY RENDERS ALL PROJECTS FROM <<CARDS>> CONSTANT INTO LIST FORM; MODIFY FUNCTION TO RETURN THE ROW & COL FORM
         return (
             <div id="portfolio-gallery">
-                <Container fluid>
-                <Jumbotron>
-                    <Accordion defaultActiveKey="0">
-                        {cardsToRender}
-                    </Accordion>
-                </Jumbotron>
-                </Container>
+                <Grid container
+                        justify="center"
+                        spacing={4}
+                >
+                    <Grid container
+                            justify="center"
+                    >
+                        {this.Control()}
+                    </Grid>
+                    <br />
+                    <br />
+                    <Grid container
+                            justify="center"
+                            spacing={2}
+                    >
+                       {cardsToRender} 
+                    </Grid>
+                </Grid>
             </div>
         );
     }
 
     render() {
+        // ADD URL PARAMETER QUERY HERE
         const categoriesToRender = this.activeCategories();
 
         const cardsToRender = this.Cards(this.state.cards, categoriesToRender);
@@ -157,18 +246,22 @@ export class Portfolio extends React.Component {
             <main role="main">
                 <Jumbotron>
                 {this.Title()}
-                <hr />
-                {this.Control()}
                 </Jumbotron>
+
+                <Container>
                 {this.Gallery(cardsToRender)}
+                </Container>
             </main>
         );
     }
 }
 
-class PortfolioCard extends React.Component {
+class GalleryCard extends React.Component {
     constructor(props) {
         super(props);
+
+        this.whatTheme = this.whatTheme.bind(this);
+
         this.state = {
             id: props.card.id,
             eventKey: props.card.id.toString(),
@@ -177,126 +270,135 @@ class PortfolioCard extends React.Component {
             source: props.card.source,
             projectStatus: props.card.projectStatus,
             category: props.card.category,
+            theme: this.whatTheme(props.card.category)
         }
+        //console.log(this.state.theme)
+
         this.Header = this.Header.bind(this);
         this.Body = this.Body.bind(this);
         this.Footer = this.Footer.bind(this);
     }
 
+    whatTheme(category) {
+        switch(category){
+            case CATEGORIES[0]:
+                return softwareTheme;
+            case CATEGORIES[1]:
+                return hardwareTheme;
+            case CATEGORIES[2]:
+                return nonTechTheme;
+            default:
+                // return default theme
+                console.log("NO THEME FOUND");
+                return;
+        }
+    }
+
+    useStyles = makeStyles((theme) => ({
+        software: {
+            secondary: {
+                main: blue,
+            },
+        },
+        hardware: {
+            secondary: {
+                main: orange,
+            }
+        },
+        nonTech: {
+            secondary: {
+                main: green,
+            }
+        }
+    }));
+
     Header() {
         return (
-            <Accordion.Toggle
-                as={Card.Header}
-                eventKey={this.state.eventKey}
-            >
-                <h4>
-                    {this.state.title}
-                </h4>
-            </Accordion.Toggle>
+            <CardHeader
+                        title={this.state.title}
+                        action={
+                            <Button aria-label="project category"
+                                        variant="contained"
+                                        color="secondary"
+                            >
+                                {this.state.category}
+                            </Button>
+                        }
+            />
         );
     }
 
     Body() {
         return (
-            <Accordion.Collapse
-                eventKey={this.state.eventKey}
-            >
-                <Card.Body>
-                    <Card.Text>
-                        {this.state.body}
-                    </Card.Text>
-                </Card.Body>
-            </Accordion.Collapse>
+            <CardContent>
+                <Typography variant="body1"
+                            color="textPrimary"
+                            component="p"
+                >
+                    {this.state.body}
+                </Typography>
+            </CardContent>
         );
     }
 
-    Footer() {
-        // if this.state.source === ""
-        // render a tooltip
-        let button;
-        if (this.state.source === "") {
-            button = <NoSource />;
-        } else {
-            button = <Source />;
-        }
-        return (
-            <Card.Footer>
-                <ButtonToolbar
-                    className="justify-content-between"
-                    aria-label="card button groups">
-                <ButtonGroup
-                    id={"buttons-source-" + this.state.title}
-                    className="mr-2"
-                    aria-label="Project source"
-                    size="sm"
-                >
-                    <Link to={`/projects/${this.state.id}`}>
-                        <Button>
+    Footer(source) {
+        if (source === "") {
+            return (
+                <CardActions>
+                    <ButtonGroup variant="outlined"
+                                    color="primary"
+                                    fullWidth
+                    >
+                        <Button href={`/projects/${this.state.id}`}>
                             Details
                         </Button>
-                    </Link>
-                    <a href={this.state.source}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        <Tooltip title="No Source Available"
+                            leaveDelay={50}
+                            placement="bottom"
+                        >
+                        <Button >
+                            Source
+                        </Button>
+                        </Tooltip>
+                    </ButtonGroup>
+                </CardActions>
+            );
+        } else {
+            return (
+                <CardActions>
+                    <ButtonGroup  variant="outlined"
+                                    color="primary"
+                                    fullWidth
                     >
-                            {button}
-                    </a>
-                </ButtonGroup>
-                <ButtonGroup
-                    id={`buttons-status-${this.state.title}`}
-                    className="mr-2"
-                    aria-label="Project docs"
-                    size="sm"
-                >
-                    <Button variant="outline-primary">
-                        {this.state.projectStatus}
-                    </Button>
-                    <Button variant="outline-secondary">
-                        {this.state.category}
-                    </Button>
-                </ButtonGroup>
-                </ButtonToolbar>
-            </Card.Footer>
-        );
+                        <Button href={`/projects/${this.state.id}`}>
+                            Details
+                        </Button>
+                        <Button href={this.state.source}>
+                            Source
+                        </Button>
+                    </ButtonGroup>
+                </CardActions>
+            );
+        }
     }
 
     render() {
+        let source;
+        if (this.state.source.length < 1) {
+            source = "";
+        } else {
+            source = this.state.source;
+        }
         return (
-            <Card>
-                {this.Header()}
-                {this.Body()}
-                {this.Footer()}
-            </Card>
-        );
+            <ThemeProvider theme={this.state.theme}>
+                <MaterialCard
+                            variant="outlined"
+                >
+                    {this.Header()}
+                    {this.Body()}
+                    {this.Footer(source)}
+                </MaterialCard>
+            </ThemeProvider>
+        )
     }
 }
-
-function renderToolTip(props) {
-        return (
-            <Tooltip id="source-notavailable" {...props}>
-                Source Not Available
-            </Tooltip>
-        );
-    }
-
-function NoSource() {
-        return (
-            <OverlayTrigger
-                placement="top"
-                delay={{show: 100, hide: 150}}
-                overlay={renderToolTip}
-            >
-                <Button>
-                    Source
-                </Button>
-            </ OverlayTrigger>
-        );
-    }
-
-function Source() {
-        return (
-            <Button>
-                Source
-            </Button>
-        );
-    }

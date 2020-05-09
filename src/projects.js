@@ -3,11 +3,16 @@ import React from "react";
 import {
     Switch,
     Route,
-    useRouteMatch
+    useRouteMatch,
+    useParams,
 } from "react-router-dom";
 import {
     Jumbotron
 } from "react-bootstrap";
+
+import {
+    Typography,
+} from "@material-ui/core";
 
 // ==== CONTENT JSX ====
 export class Project extends React.Component {
@@ -40,9 +45,9 @@ export class Project extends React.Component {
 
     Title() {
         return (
-            <h2>
+            <Typography variant="h2">
                 {this.state.title}
-            </h2>
+            </Typography>
         );
     }
 
@@ -50,9 +55,9 @@ export class Project extends React.Component {
         if (this.state.summary.length < 1) {
             return (
             <div id="summary">
-            <h3>
+            <Typography variant="h3">
                 Summary
-            </h3>
+            </Typography>
             <p className="lead text-danger">
                 This content has not been written yet.
             </p>
@@ -61,9 +66,9 @@ export class Project extends React.Component {
         }
         return (
             <div id="summary">
-            <h3>
+            <Typography variant="h3">
                 Summary
-            </h3>
+            </Typography>
             <p className="lead">
                 {this.state.summary}
             </p>
@@ -89,9 +94,9 @@ export class Project extends React.Component {
         // TODO: ADD DEMO SECTION BELOW
         return (
             <div id={`${this.state.title}-demo`}>
-            <h3>
+            <Typography variant="h3">
                 Demonstration: {this.state.title}
-            </h3>
+            </Typography>
             <p>
                 DEMO GOES HERE
             </p>
@@ -113,15 +118,16 @@ export class Project extends React.Component {
         );
         return (
             <div id={`${this.state.title}-purpose`}>
-            <h3>
+            <Typography variant="h3">
                 Purpose
-            </h3>
+            </Typography>
             {listPurpose}
             </div>
         );
     }
 
     TechStack() {
+        // Modify with Material components?
         let listStack = this.state.stack.map((tech) =>
             <li>{tech}</li>
         );

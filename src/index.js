@@ -33,12 +33,16 @@ import {
     Tooltip,
     Divider
 } from "@material-ui/core";
+import {
+    LinkedIn as LinkedInIcon,
+    GitHub as GitHubIcon,
+    AlternateEmail as EmailIcon,
+} from "@material-ui/icons"
 import theme from "./theme.js";
 
 // ==== PROJECT IMPORTS ====
 import {
     AppBarGlobal,
-    NavbarGlobal,
     FooterGlobal
 } from "./common";
 import {
@@ -159,7 +163,9 @@ const showcaseContent = (
     <div id="showcase-highlights">
         <Carousel fade interval="5000">
             <Carousel.Item>
-                <Figure>
+                <Figure id="carousel-software"
+                        class="carousel-image"
+                >
                     <Figure.Image
                         className="img-fluid"
                         src={showcaseSoftware}
@@ -168,16 +174,22 @@ const showcaseContent = (
                     />
                 </Figure>
                 <Carousel.Caption>
-                    <Typography>
+                    <Link to="/portfolio?category=software"
+                            class="carousel-link"
+                    >
+                    <Typography variant="h2">
                         Software
                     </Typography>
                     <p>
                         Software Projects
                     </p>
+                    </Link>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-                <Figure>
+                <Figure id="carousel-hardware"
+                        class="carousel-image"
+                >
                     <Figure.Image
                         className="img-fluid"
                         src={showcaseHardware}
@@ -186,16 +198,22 @@ const showcaseContent = (
                     />
                 </Figure>
                 <Carousel.Caption>
+                    <Link to="/portfolio?category=hardware"
+                            class="carousel-link"
+                    >
                     <Typography variant="h2">
                         Hardware
                     </Typography>
                     <p>
                         Hardware Projects
                     </p>
+                    </Link>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-                <Figure>
+                <Figure id="carousel-nontech"
+                        class="carousel-image"
+                >
                         <Figure.Image
                             className="img-fluid"
                             src={showcaseNonTech}
@@ -204,12 +222,16 @@ const showcaseContent = (
                         />
                 </Figure>
                 <Carousel.Caption>
+                    <Link to="/portfolio?category=non-tech"
+                            class="carousel-link"
+                    >
                     <Typography variant="h2">
                         Non-Technical
                     </Typography>
                     <p>
                         Non-Technical Projects
                     </p>
+                    </Link>
                 </Carousel.Caption>
             </Carousel.Item>
         </Carousel>
@@ -219,11 +241,7 @@ const showcaseContent = (
 function Showcase() {
     return (
         <section id="showcase">
-            <Jumbotron>
             {showcaseContent}
-            <hr />
-            {showcaseTitle}
-            </Jumbotron>
         </section>
     );
 }
@@ -248,9 +266,9 @@ const summaryTitle = (
 );
 
 const summaryContent = (
-    <p className="lead">
+    <Typography variant="body1">
         This website is meant to be a <a href="#showcase" className="text-decoration-none">showcase of personal projects</a> as well as a living product that I can experiment and play with. The most recent copy of my <a href="#resume" className="text-decoration-none">resume</a> as well as my <a href="#contact" className="text-decoration-none">contact information</a> can also be found this site.
-    </p>
+    </Typography>
 );
 
 function Summary(props) {
@@ -397,7 +415,41 @@ class Resume extends React.Component {
             numPages: 1,
             pageNumber: 1,
             file: resumeFile,
+            windowWidth: window.innerWidth,
+            scale: 1.00
         };
+    }
+
+    updateScale() {
+        const newWidth = window.innerWidth;
+        let scale;
+        if (newWidth <= 600) {
+            scale = 0.5
+        } if (600 < newWidth && newWidth <= 768) {
+            scale = 0.65
+        } if (768 < newWidth && newWidth <= 992) {
+            scale = 0.8
+        } if (992 < newWidth && newWidth <= 1200) {
+            scale = 1.0
+        } else {
+            scale = 1.5
+        }
+        console.log("scale:" + scale);
+        console.log("page width:" + newWidth);
+
+        this.setState({
+            windowWidth: newWidth,
+            scale: scale,
+        })
+    }
+
+    componentDidMount() {
+        this.updateScale();
+        window.addEventListener("resize", this.updateScale.bind(this));
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateScale.bind(this));
     }
 
     onDocumentLoadSuccess = ({ numPages }) => {
@@ -405,6 +457,9 @@ class Resume extends React.Component {
     }
 
     render() {
+        const scale = this.state.scale;
+        const width = this.state.windowWidth;
+        
         return (
             <section
                 id="resume"
@@ -412,6 +467,7 @@ class Resume extends React.Component {
             >
             <Jumbotron>
                 {resumeTitle}
+                {width};{scale}
                 <div id="resume-holder"
                     style={{
                         display: 'flex',
@@ -422,8 +478,12 @@ class Resume extends React.Component {
                     file={this.state.file}
                     onLoadSuccess={this.onDocumentLoadSuccess}
                     onLoadError={console.error}
+                    renderMode="svg"
                 >
-                    <Page pageNumber={this.state.pageNumber} />
+                    <Page pageNumber={this.state.pageNumber}
+                            renderMode="svg"
+                            scale={scale}
+                    />
                 </Document>
                 </div>
             </Jumbotron>
@@ -442,29 +502,31 @@ const contactTitle = (
 );
 
 const contactContent = (
-    <div id="contact-content">
+    <div id="contact-content" style={{padding: "20px"}}>
         <Container>
             <Row>
                 <Col>
                     <Tooltip title="Open New Tab"
-                            leaveDelay="50"
-                            placement="bot"
+                            leaveDelay={50}
+                            placement="bottom"
+                            arrow
                     >
                     <Button href="https://www.linkedin.com/in/jsrhu"
                             target="_blank"
                             rel="noopener noreferrer"
                             size="large"
-                            leaveDelay="50"
                             fullWidth
                     >
+                        <LinkedInIcon />
                         LinkedIn
                     </Button>
                     </Tooltip>
                 </Col>
                 <Col>
                     <Tooltip title="Open New Tab"
-                            leaveDelay="50"
-                            placement="bot"
+                            leaveDelay={50}
+                            placement="bottom"
+                            arrow
                     >
                     <Button href="https://github.com/jsrhu"
                             target="_blank"
@@ -472,14 +534,16 @@ const contactContent = (
                             size="large"
                             fullWidth
                     >
-                        Github
+                        <GitHubIcon />
+                        GitHub
                     </Button>
                     </Tooltip>
                 </Col>
                 <Col>
                     <Tooltip title="Open New Tab"
-                        leaveDelay="50"
-                        placement="bot"
+                        leaveDelay={50}
+                        placement="bottom"
+                        arrow
                     >
                     <Button href="mailto:joshua.s.r.hu@gmail.com?subject=Getting In Touch"
                             target="_blank"
@@ -487,6 +551,7 @@ const contactContent = (
                             size="large"
                             fullWidth
                     >
+                        <EmailIcon />
                         E-Mail
                     </Button>
                     </Tooltip>
@@ -513,6 +578,7 @@ function Home() {
     return (
         <main role="main">
             <Showcase />
+            <br />
             <Summary />
             <Progress />
             <br />

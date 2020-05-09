@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.353fc98c.chunk.css",
+    "main.js": "/static/js/main.1f180c01.chunk.js",
+    "main.js.map": "/static/js/main.1f180c01.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e763491a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e763491a.js.map",
+    "static/js/2.e07edef4.chunk.js": "/static/js/2.e07edef4.chunk.js",
+    "static/js/2.e07edef4.chunk.js.map": "/static/js/2.e07edef4.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e5074664103cd099a108801a612b0bfd.js": "/precache-manifest.e5074664103cd099a108801a612b0bfd.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.353fc98c.chunk.css.map": "/static/css/main.353fc98c.chunk.css.map",
+    "static/js/2.e07edef4.chunk.js.LICENSE.txt": "/static/js/2.e07edef4.chunk.js.LICENSE.txt",
+    "static/media/Hu_Joshua-20_04_07.pdf": "/static/media/Hu_Joshua-20_04_07.8ccce9f6.pdf",
+    "static/media/forest.jpg": "/static/media/forest.8122cb01.jpg",
+    "static/media/keyboard.jpg": "/static/media/keyboard.1dd52545.jpg",
+    "static/media/tools.jpg": "/static/media/tools.3cc8a4f5.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e763491a.js",
+    "static/js/2.e07edef4.chunk.js",
+    "static/css/main.353fc98c.chunk.css",
+    "static/js/main.1f180c01.chunk.js"
+  ]
+}
