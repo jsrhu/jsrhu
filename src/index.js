@@ -31,7 +31,8 @@ import {
     Button,
     Container,
     Tooltip,
-    Divider
+    Divider,
+    Paper,
 } from "@material-ui/core";
 import {
     LinkedIn as LinkedInIcon,
@@ -428,14 +429,12 @@ class Resume extends React.Component {
         } if (600 < newWidth && newWidth <= 768) {
             scale = 0.65
         } if (768 < newWidth && newWidth <= 992) {
-            scale = 0.8
+            scale = 0.85
         } if (992 < newWidth && newWidth <= 1200) {
             scale = 1.0
-        } else {
+        } if (1200 < newWidth) {
             scale = 1.5
         }
-        console.log("scale:" + scale);
-        console.log("page width:" + newWidth);
 
         this.setState({
             windowWidth: newWidth,
@@ -444,8 +443,8 @@ class Resume extends React.Component {
     }
 
     componentDidMount() {
-        this.updateScale();
         window.addEventListener("resize", this.updateScale.bind(this));
+        this.updateScale();
     }
 
     componentWillUnmount() {
@@ -465,9 +464,10 @@ class Resume extends React.Component {
                 id="resume"
                 className="text-center"
             >
-            <Jumbotron>
                 {resumeTitle}
-                {width};{scale}
+                <Paper variant="outlined"
+                        elevation={0}
+                >
                 <div id="resume-holder"
                     style={{
                         display: 'flex',
@@ -486,7 +486,7 @@ class Resume extends React.Component {
                     />
                 </Document>
                 </div>
-            </Jumbotron>
+                </Paper>
             </section>
         );
     }
