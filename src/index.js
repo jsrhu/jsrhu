@@ -164,6 +164,10 @@ const showcaseContent = (
     <div id="showcase-highlights">
         <Carousel fade interval="5000">
             <Carousel.Item>
+                <Link to="/portfolio?category=software"
+                        class="carousel-link"
+                        underline="none"
+                >
                 <Figure id="carousel-software"
                         class="carousel-image"
                 >
@@ -175,19 +179,19 @@ const showcaseContent = (
                     />
                 </Figure>
                 <Carousel.Caption>
-                    <Link to="/portfolio?category=software"
-                            class="carousel-link"
-                    >
                     <Typography variant="h2">
                         Software
                     </Typography>
                     <p>
                         Software Projects
                     </p>
-                    </Link>
                 </Carousel.Caption>
+                </Link>
             </Carousel.Item>
             <Carousel.Item>
+                <Link to="/portfolio?category=hardware"
+                        class="carousel-link"
+                >
                 <Figure id="carousel-hardware"
                         class="carousel-image"
                 >
@@ -199,19 +203,19 @@ const showcaseContent = (
                     />
                 </Figure>
                 <Carousel.Caption>
-                    <Link to="/portfolio?category=hardware"
-                            class="carousel-link"
-                    >
                     <Typography variant="h2">
                         Hardware
                     </Typography>
                     <p>
                         Hardware Projects
                     </p>
-                    </Link>
                 </Carousel.Caption>
+                </Link>
             </Carousel.Item>
             <Carousel.Item>
+                <Link to="/portfolio?category=non-tech"
+                        class="carousel-link"
+                >
                 <Figure id="carousel-nontech"
                         class="carousel-image"
                 >
@@ -223,17 +227,14 @@ const showcaseContent = (
                         />
                 </Figure>
                 <Carousel.Caption>
-                    <Link to="/portfolio?category=non-tech"
-                            class="carousel-link"
-                    >
                     <Typography variant="h2">
                         Non-Technical
                     </Typography>
                     <p>
                         Non-Technical Projects
                     </p>
-                    </Link>
                 </Carousel.Caption>
+                </Link>
             </Carousel.Item>
         </Carousel>
     </div>

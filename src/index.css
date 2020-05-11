@@ -22,20 +22,6 @@ code {
   max-height: 500px;
 }
 
-.carousel-image::before {
-  background: linear-gradient((white, black));
-}
-
-.carousel-link {
-  text-decoration: none;
-  color: white;
-}
-
-.carousel-link:hover {
-  text-decoration: none;
-  color: lightgrey;
-}
-
 #resume-holder {
   overflow: auto;
   margin: auto;

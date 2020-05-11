@@ -2,6 +2,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import green from "@material-ui/core/colors/green";
 import orange from "@material-ui/core/colors/orange";
+import red from "@material-ui/core/colors/red";
 
 const theme = createMuiTheme({
   palette: {
@@ -10,7 +11,7 @@ const theme = createMuiTheme({
     success: green,
   },
   status: {
-    danger: orange,
+    danger: red,
   },
 });
 
