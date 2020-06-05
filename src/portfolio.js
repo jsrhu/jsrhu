@@ -1,12 +1,8 @@
+import "./common.css";
+import "./portfolio.css";
+
 // ==== REACT LIBRARIES ====
 import React from 'react';
-import {
-    Link,
-    useRouteMatch,
-} from "react-router-dom";
-import {
-    Jumbotron,
-} from "react-bootstrap";
 
 import {
     makeStyles,
@@ -14,25 +10,20 @@ import {
     Typography,
     Container,
     Grid,
-    Button,
     ButtonGroup,
+    Button,
     IconButton,
     Tooltip,
-    Card as MaterialCard,
+    Card,
     CardHeader,
-    CardMedia,
     CardContent,
     CardActions,
     Collapse,
 } from "@material-ui/core";
-
 import {
     Computer as SoftwareIcon,
     Memory as HardwareIcon,
     Public as NonTechIcon,
-
-    ExpandMore as ExpandMoreIcon,
-    MoreVert as MoreVertIcon,
 } from "@material-ui/icons";
 import {
     blue,
@@ -46,7 +37,6 @@ import {
     hardwareTheme,
     nonTechTheme,
 } from "./common";
-import { isPropertySignature } from 'typescript';
 
 // ==== CONTENT JSX ====
 export class Portfolio extends React.Component {
@@ -138,7 +128,7 @@ export class Portfolio extends React.Component {
 
     Title() {
         return (
-            <div id="portfolio-title">
+            <Container id="portfolio-title">
                 <Typography variant="h2">
                     Portfolio Gallery
                 </Typography>
@@ -150,54 +140,57 @@ export class Portfolio extends React.Component {
                     <br />
                     The cards contain high-level information about each project with links to each project's demo, source code, and write-up as applicable. The cards can be filtered using the category togglers below.
                 </Typography>
-            </div>
+            </Container>
         );
     }
 
     Control() {
         return (
-            <div id="portfolio-control"
-            >
-                <ButtonGroup aria-label="toggle-control" style={{alignItems: "center,"}}>
+                <ButtonGroup id="portfolio-control" aria-label="toggle-control">
                     <ThemeProvider theme={softwareTheme}>
                     <Button onClick={this.toggleSoftware}
                             variant="contained"
-                            color="secondary"
+                            color={this.state.isSoftware ? "secondary" : "grey"}
                     >
                         <SoftwareIcon />
-                        Software: {this.state.isSoftware ? "ON" : "OFF"}
+                        Software
                     </Button>
                     </ThemeProvider>
                     <ThemeProvider theme={hardwareTheme}>
                     <Button onClick={this.toggleHardware}
                             variant="contained"
-                            color="secondary"
+                            color={this.state.isHardware ? "secondary" : "grey"}
                     >
                         <HardwareIcon />
-                        Hardware: {this.state.isHardware ? "ON" : "OFF"}
+                        Hardware
                     </Button>
                     </ThemeProvider>
                     <ThemeProvider theme={nonTechTheme}>
                     <Button onClick={this.toggleNonTech}
                             variant="contained"
-                            color="secondary"
+                            color={this.state.isNonTech ? "secondary" : "grey"}
                     >
                         <NonTechIcon />
-                        Non-Technical: {this.state.isNonTech ? "ON" : "OFF"}
+                        Non-Technical
                     </Button>
                     </ThemeProvider>
                 </ButtonGroup>
-            </div>
         );
     }
 
     Cards(cards, categories) {
+        // change <<Grid>> class to className implemented through <<useStyles>>
         let cardsToRender = [];
         for (let card in cards) { // LOOK INTO CHANGING TO <<map>> FUNCTION TO INCREASE PERFORMANCE
             if (categories.includes(cards[card].category)) {
                 cardsToRender.push(<Grid key={cards[card].id}
+                                            class="gallery-card"
                                             item
-                                            xs={6}
+                                            xs={12}
+                                            sm={6}
+                                            md={6}
+                                            lg={4}
+                                            xl={4}
                                     >
                                         <GalleryCard
                                         card={cards[card]}
@@ -211,46 +204,39 @@ export class Portfolio extends React.Component {
     }
 
     Gallery(cardsToRender) {
-        // CURRENTLY RENDERS ALL PROJECTS FROM <<CARDS>> CONSTANT INTO LIST FORM; MODIFY FUNCTION TO RETURN THE ROW & COL FORM
         return (
-            <div id="portfolio-gallery">
-                <Grid container
-                        justify="center"
-                        spacing={4}
+            <Grid id="portfolio-gallery"
+                    container
+                    justify="center"
+                    style={{backgroundColor: "#cfd8dc"}}
+            >
+                <Grid item
                 >
-                    <Grid container
-                            justify="center"
-                    >
-                        {this.Control()}
-                    </Grid>
-                    <br />
-                    <br />
-                    <Grid container
-                            justify="center"
-                            spacing={2}
-                    >
-                       {cardsToRender} 
-                    </Grid>
+                    {this.Control()}
                 </Grid>
-            </div>
+                <Grid item container
+                        justify="center"
+                        direction="row"
+                >
+                    {cardsToRender}
+                </Grid>
+            </Grid>
         );
     }
 
     render() {
-        // ADD URL PARAMETER QUERY HERE
         const categoriesToRender = this.activeCategories();
 
         const cardsToRender = this.Cards(this.state.cards, categoriesToRender);
 
         return (
-            <main role="main">
-                <Jumbotron>
+            <main class="portfolio"
+                    role="main"
+            >
                 {this.Title()}
-                </Jumbotron>
-
-                <Container>
+                <br />
+                <br />
                 {this.Gallery(cardsToRender)}
-                </Container>
             </main>
         );
     }
@@ -272,7 +258,6 @@ class GalleryCard extends React.Component {
             category: props.card.category,
             theme: this.whatTheme(props.card.category)
         }
-        //console.log(this.state.theme)
 
         this.Header = this.Header.bind(this);
         this.Body = this.Body.bind(this);
@@ -373,7 +358,7 @@ class GalleryCard extends React.Component {
                         <Button href={`/projects/${this.state.id}`}>
                             Details
                         </Button>
-                        <Button href={this.state.source}>
+                        <Button href={this.state.source} target="_blank">
                             Source
                         </Button>
                     </ButtonGroup>
@@ -391,13 +376,14 @@ class GalleryCard extends React.Component {
         }
         return (
             <ThemeProvider theme={this.state.theme}>
-                <MaterialCard
+                <Card
                             variant="outlined"
+                            raised
                 >
                     {this.Header()}
                     {this.Body()}
                     {this.Footer(source)}
-                </MaterialCard>
+                </Card>
             </ThemeProvider>
         )
     }

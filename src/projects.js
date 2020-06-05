@@ -1,3 +1,5 @@
+import "./projects.css"
+
 // ==== REACT IMPORTS ====
 import React from "react";
 import {
@@ -6,12 +8,12 @@ import {
     useRouteMatch,
     useParams,
 } from "react-router-dom";
-import {
-    Jumbotron
-} from "react-bootstrap";
 
 import {
     Typography,
+    Grid,
+    Divider,
+    Button,
 } from "@material-ui/core";
 
 // ==== CONTENT JSX ====
@@ -19,9 +21,9 @@ export class Project extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            project: props.project,
+            title: props.project.title,
             id: props.project.id,
-            source: props.project.title,
+            source: props.project.source,
             summary: props.project.summary,
             demo: props.project.demo,
             purpose: props.project.purpose,
@@ -33,6 +35,7 @@ export class Project extends React.Component {
         }
 
         this.Title = this.Title.bind(this);
+        this.QuickInfo = this.QuickInfo.bind(this);
         this.Summary = this.Summary.bind(this);
         this.Demo = this.Demo.bind(this);
         this.Purpose = this.Purpose.bind(this);
@@ -51,6 +54,24 @@ export class Project extends React.Component {
         );
     }
 
+    QuickInfo() {
+        return (
+            <Grid container>
+                <Grid item>
+                    <Button>
+                        Source
+                    </Button>
+                    <Button>
+                        Status
+                    </Button>
+                    <Button>
+                        Stack
+                    </Button>
+                </Grid>
+            </Grid>
+        )
+    }
+
     Summary() {
         if (this.state.summary.length < 1) {
             return (
@@ -58,9 +79,9 @@ export class Project extends React.Component {
             <Typography variant="h3">
                 Summary
             </Typography>
-            <p className="lead text-danger">
+            <Typography variant="body1">
                 This content has not been written yet.
-            </p>
+            </Typography>
             </div>
             );
         }
@@ -69,9 +90,9 @@ export class Project extends React.Component {
             <Typography variant="h3">
                 Summary
             </Typography>
-            <p className="lead">
+            <Typography variant="body1">
                 {this.state.summary}
-            </p>
+            </Typography>
             </div>
         );
     }
@@ -80,14 +101,14 @@ export class Project extends React.Component {
         if (this.state.demo.length < 1) {
             return (
                 <div id={`${this.state.title}-demo`}>
-                <h3>
+                <Typography variant="h3">
                     Demonstration: {this.state.title}
-                </h3>
+                </Typography>
                 <main id={`${this.state.title}-demo-main`}>
                 </main>
-                <p className="lead text-danger">
+                <Typography variant="body1">
                     PROJECT DEMONSTRATION CURRENTLY UNDER DEVELOPMENT.
-                </p>
+                </Typography>
                 </div>
             );
         }
@@ -114,7 +135,9 @@ export class Project extends React.Component {
             return;
         }
         let listPurpose = this.state.purpose.map((par) =>
-            <p>{par}</p>
+            <Typography variant="body1">
+                {par}
+            </Typography>
         );
         return (
             <div id={`${this.state.title}-purpose`}>
@@ -129,7 +152,9 @@ export class Project extends React.Component {
     TechStack() {
         // Modify with Material components?
         let listStack = this.state.stack.map((tech) =>
-            <li>{tech}</li>
+            <li>
+                {tech}
+            </li>
         );
         if (listStack.length < 1) {
             listStack = (
@@ -139,9 +164,9 @@ export class Project extends React.Component {
         }
         return (
             <div id={`${this.state.title}-stack`}>
-            <h3>
+            <Typography variant="h3">
                 Technology Stack
-            </h3>
+            </Typography>
             <ul>
                 {listStack}
             </ul>
@@ -151,7 +176,9 @@ export class Project extends React.Component {
 
     Milestones() {
         let listMilestones = this.state.milestones.map((milestone) =>
-            <li>{milestone}</li>
+            <li>
+                {milestone}
+            </li>
         );
         if (listMilestones.length < 1) {
             listMilestones =(
@@ -161,9 +188,9 @@ export class Project extends React.Component {
         }
         return (
             <div id={`${this.state.title}-milestones`}>
-            <h3>
+            <Typography variant="h3">
                 Milestones
-            </h3>
+            </Typography>
             <ol>
                 {listMilestones}
             </ol>
@@ -173,7 +200,9 @@ export class Project extends React.Component {
 
     Process() {
         let listProcess = this.state.process.map((step) =>
-            <li>{step}</li>
+            <li>
+                {step}
+            </li>
         );
         if (listProcess.length < 1) {
             listProcess = (
@@ -183,9 +212,9 @@ export class Project extends React.Component {
         }
         return (
             <div id={`${this.state.title}-process`}>
-            <h3>
+            <Typography variant="h3">
                 Process
-            </h3>
+            </Typography>
             <ol>
                 {listProcess}
             </ol>
@@ -200,12 +229,12 @@ export class Project extends React.Component {
         // TODO: Load pdfs here
         return (
             <div id={`${this.state.title}-docs`}>
-            <h3>
+            <Typography variant="h3">
                 Design Documentation
-            </h3>
-            <p>
+            </Typography>
+            <Typography variant="body1">
                 DOCS GO HERE
-            </p>
+            </Typography>
             </div>
         );
     }
@@ -216,32 +245,70 @@ export class Project extends React.Component {
         }
         return (
             <div id={`${this.state.title}-outcomes`}>
-            <h3>
+            <Typography variant="h3">
                 Outcomes
-            </h3>
-            <p>
+            </Typography>
+            <Typography variant="body1">
                 {this.state.outcomes}
-            </p>
+            </Typography>
             </div>
         );
     }
 
     render() {
+        /* PRECEDES SUMMARY
+        <Grid item>
+            {this.QuickInfo()}
+        </Grid>
+
+        FOLLOWS SUMMARY
+        <Grid item>
+            {this.Demo()}
+        </Grid>
+        */
         return (
-            <div id={this.state.id} style={{ width: "auto", height: "auto" }}>
-            <Jumbotron>
-                {this.Title()}
-                {this.Summary()}
-                {this.Demo()}
-                <hr />
-                {this.TechStack()}
-                {this.Purpose()}
-                {this.Milestones()}
-                {this.Process()}
-                {this.DesignDocs()}
-                {this.Outcomes()}
-            </Jumbotron>
-            </div>
+            <Grid id={`project-${this.state.id}`} class="project-page"
+                    container
+                    direction="column"
+                    spacing="4"
+            >
+                <Grid item>
+                    {this.Title()}
+                </Grid>
+
+
+                <Grid item>
+                    {this.Summary()}
+                </Grid>
+
+                <br />
+                <Divider />
+                <br />
+
+                <Grid item>
+                    {this.TechStack()}
+                </Grid>
+
+                <Grid item>
+                    {this.Purpose()}
+                </Grid>
+
+                <Grid item>
+                    {this.Milestones()}
+                </Grid>
+
+                <Grid item>
+                    {this.Process()}
+                </Grid>
+
+                <Grid item>
+                    {this.DesignDocs()}
+                </Grid>
+
+                <Grid item>
+                    {this.Outcomes()}
+                </Grid>
+            </Grid>
         );
     }
 }
@@ -249,43 +316,17 @@ export class Project extends React.Component {
 export function RoutesProjects(props) {
     let match = useRouteMatch();
 
+    const routes = props.projects.map((project) => {
+        return (
+        <Route path={`${match.path}/${project.id}`}>
+            <Project project={project} />
+        </Route>
+        )
+    });
+
     return (
         <Switch>
-            <Route path={`${match.path}/${props.cards[0].id}`}>
-                <Project
-                    project={props.projects[0]}
-                />
-            </ Route>
-
-            <Route path={`${match.path}/${props.cards[1].id}`}>
-                <Project
-                    project={props.projects[1]}
-                />
-            </ Route>
-
-            <Route path={`${match.path}/${props.cards[2].id}`}>
-                <Project
-                    project={props.projects[2]}
-                />
-            </ Route>
-
-            <Route path={`${match.path}/${props.cards[3].id}`}>
-                <Project
-                    project={props.projects[3]}
-                />
-            </ Route>
-
-            <Route path={`${match.path}/${props.cards[4].id}`}>
-                <Project
-                    project={props.projects[4]}
-                />
-            </ Route>
-
-            <Route path={`${match.path}/${props.cards[5].id}`}>
-                <Project
-                    project={props.projects[5]}
-                />
-            </ Route>
-        </ Switch>
-    );
+            {routes}
+        </Switch>
+    )
 }

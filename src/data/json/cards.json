@@ -4,7 +4,7 @@
             "id": 0,
             "title": "Portfolio Website",
             "body": "A look at the design and process behind the website you are currently browsing.",
-            "source": "https://github.com/jsrhu/jsrhu.github.io",
+            "source": "https://github.com/jsrhu/jsrhu",
             "projectStatus": "Functional",
             "category": "Software"
         },{
@@ -58,7 +58,7 @@
                 "React",
                 "HTML",
                 "CSS",
-                "Bootstrap"
+                "Material UI"
             ],
             "milestones": [
             ],

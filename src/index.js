@@ -1,5 +1,6 @@
 // ==== LOCAL IMPORTS ====
 import "./index.css";
+import "./common.css";
 
 // ==== CORE IMPORTS ====
 import React from "react";
@@ -22,11 +23,12 @@ import {
     Row,
     Col,
     Carousel,
-    Jumbotron,
     Figure,
+    Jumbotron
 } from "react-bootstrap";
 import {
-    ThemeProvider,
+    CssBaseline,
+    MuiThemeProvider,
     Typography,
     Button,
     Container,
@@ -48,19 +50,19 @@ import {
 } from "./common";
 import {
     Portfolio
-} from "./portfolio.js";
+} from "./portfolio";
 import {
     RoutesProjects
-} from "./projects.js";
+} from "./projects";
 
 // ==== DATA IMPORTS ====
 import resumeFile from "./data/resume/Hu_Joshua-20_04_07.pdf";
 import project_data from "./data/json/cards.json";
 
 // ==== IMAGE IMPORTS ====
-import showcaseSoftware from "./assets/img/keyboard.jpg";
-import showcaseHardware from "./assets/img/tools.jpg";
-import showcaseNonTech from "./assets/img/forest.jpg";
+import showcaseSoftware from "./data/assets/img/keyboard.jpg";
+import showcaseHardware from "./data/assets/img/tools.jpg";
+import showcaseNonTech from "./data/assets/img/forest.jpg";
 
 // ==== CDN PDF.JS WORKER; CREATE LOCAL COPY AND UNDERSTAND THIS BETTER
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -161,7 +163,10 @@ const showcaseTitle = (
 
 // TODO: REWRITE IMAGE WIDTH AND HEIGHTS FOR RENDERING WITH REACT
 const showcaseContent = (
-    <div id="showcase-highlights">
+    <Jumbotron id="showcase-highlights"
+                style={{backgroundColor: "#cfd8dc"}}
+                fluid
+    >
         <Carousel fade interval="5000">
             <Carousel.Item>
                 <Link to="/portfolio?category=software"
@@ -175,7 +180,6 @@ const showcaseContent = (
                         className="img-fluid"
                         src={showcaseSoftware}
                         alt="Software Project Portfolio"
-                        rounded
                     />
                 </Figure>
                 <Carousel.Caption>
@@ -199,7 +203,6 @@ const showcaseContent = (
                         className="img-fluid"
                         src={showcaseHardware}
                         alt="Hardware Project Portfolio"
-                        rounded
                     />
                 </Figure>
                 <Carousel.Caption>
@@ -223,7 +226,6 @@ const showcaseContent = (
                             className="img-fluid"
                             src={showcaseNonTech}
                             alt="Non-Technical Project Portfolio"
-                            rounded
                         />
                 </Figure>
                 <Carousel.Caption>
@@ -237,7 +239,7 @@ const showcaseContent = (
                 </Link>
             </Carousel.Item>
         </Carousel>
-    </div>
+    </Jumbotron>
 );
 
 function Showcase() {
@@ -278,7 +280,7 @@ function Summary(props) {
         <section id="summary">
             <Container>
             {greeting}
-            <hr />
+            <br />
             {summaryTitle}
             {summaryContent}
             <br />
@@ -296,6 +298,7 @@ const progressTitle = (
     </div>
 );
 
+// programatically generate and read from JSON file
 const progressList= (
     <div id="progress-list">
         <ul>
@@ -315,12 +318,6 @@ const progressList= (
                         Project gallery navigation bar.
                     </li>
                     <li>
-                        Navbar project categories under "Portfolio" should apply automatic filtering based on choice.
-                    </li>
-                    <li>
-                        Additional project gallery filtering options; i.e. project status.
-                    </li>
-                    <li>
                         Working interactive demonstrations for select Software Projects.
                     </li>
                     <li>
@@ -332,22 +329,7 @@ const progressList= (
                 Refined Styling
                 <ul>
                     <li>
-                        Polishing overall look and theme of website.
-                    </li>
-                    <li>
-                        Make website responsive and mobile friendly.
-                    </li>
-                    <li>
-                        Resize carousel images so as to not take up as much screen space for better appearance.
-                    </li>
-                    <li>
-                        Restyle the project gallery card layout.
-                    </li>
-                    <li>
-                        Refine the project card design.
-                    </li>
-                    <li>
-                        Add conditional styling based on project status.
+                        Ensure consistency in size and formatting amongst common elements.
                     </li>
                     <li>
                         Restyle individual project pages.
@@ -363,9 +345,6 @@ const progressList= (
                     <li>
                         Incorporate media server.
                     </li>
-                    <li>
-                        Programmatically generate individual project pages.
-                    </li>
                 </ul>
             </li>
         </ul>
@@ -373,11 +352,9 @@ const progressList= (
 );
 
 const progressComment = (
-    <div id="progress-comment">
-        <p className="lead">
+        <Typography id="progress-comment" variant="p">
             If you feel like there are additional features I should incorporate or have feedback in general let me know <a href="#contact" className="text-decoration-none">here</a>.
-        </p>
-    </div>
+        </Typography>
 );
 
 const progressContent = (
@@ -426,15 +403,15 @@ class Resume extends React.Component {
         const newWidth = window.innerWidth;
         let scale;
         if (newWidth <= 600) {
-            scale = 0.5
+            scale = 0.65;
         } if (600 < newWidth && newWidth <= 768) {
-            scale = 0.65
+            scale = 0.85;
         } if (768 < newWidth && newWidth <= 992) {
-            scale = 0.85
+            scale = 1.00;
         } if (992 < newWidth && newWidth <= 1200) {
-            scale = 1.0
+            scale = 1.5;
         } if (1200 < newWidth) {
-            scale = 1.5
+            scale = 2.0;
         }
 
         this.setState({
@@ -458,7 +435,6 @@ class Resume extends React.Component {
 
     render() {
         const scale = this.state.scale;
-        const width = this.state.windowWidth;
         
         return (
             <section
@@ -466,11 +442,12 @@ class Resume extends React.Component {
                 className="text-center"
             >
                 {resumeTitle}
-                <Paper variant="outlined"
-                        elevation={0}
+                <Jumbotron style={{backgroundColor: "#cfd8dc"}}
+                            fluid
                 >
                 <div id="resume-holder"
                     style={{
+                        margin: "auto",
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -480,14 +457,16 @@ class Resume extends React.Component {
                     onLoadSuccess={this.onDocumentLoadSuccess}
                     onLoadError={console.error}
                     renderMode="svg"
+                            style={{objectPosition: "50% 50%"}}
                 >
                     <Page pageNumber={this.state.pageNumber}
                             renderMode="svg"
+                            size="A4"
                             scale={scale}
                     />
                 </Document>
                 </div>
-                </Paper>
+                </Jumbotron>
             </section>
         );
     }
@@ -503,7 +482,7 @@ const contactTitle = (
 );
 
 const contactContent = (
-    <div id="contact-content" style={{padding: "20px"}}>
+    <div id="contact-content">
         <Container>
             <Row>
                 <Col>
@@ -567,9 +546,8 @@ function Contact() {
         <section id="contact"
                 align="center">
             {contactTitle}
-            <Divider variant="middle" />
-            {contactContent}
             <br />
+            {contactContent}
         </section>
     );
 } // TODO: ADD STYLING (PADDING/MARGIN) TO INCREASE SPACING AT END OF PAGE
@@ -582,6 +560,7 @@ function Home() {
             <br />
             <Summary />
             <Progress />
+            <br />
             <br />
             <Resume />
             <Contact />
@@ -625,12 +604,11 @@ function Routes() {
 // implement a sub router
 
 // ==== APP COMPONENTS ====
-const AppTitle = "Joshua Hu";
-
 function AppHead() {
+    const AppTitle = "Joshua Hu";
+
     return (
         <Helmet>
-            <meta charSet="utf-8" />
             <title>{AppTitle}</title>
             <link
                 rel="stylesheet"
@@ -666,9 +644,10 @@ function App() {
 // ==== RENDER ====
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <MuiThemeProvider theme={theme}>
             <App />
-        </ThemeProvider>
+        </MuiThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

@@ -1,4 +1,6 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import {
+  createMuiTheme,
+} from "@material-ui/core/styles";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import green from "@material-ui/core/colors/green";
 import orange from "@material-ui/core/colors/orange";
@@ -10,8 +12,19 @@ const theme = createMuiTheme({
     secondary: orange,
     success: green,
   },
+
   status: {
     danger: red,
+  },
+
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 683,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
   },
 });
 
