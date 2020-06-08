@@ -16,6 +16,8 @@ import {
     Button,
 } from "@material-ui/core";
 
+// TODO: Write better keys for programatically generated components i.e. <li> and <Routes>
+
 // ==== CONTENT JSX ====
 export class Project extends React.Component {
     constructor(props) {
@@ -135,7 +137,7 @@ export class Project extends React.Component {
             return;
         }
         let listPurpose = this.state.purpose.map((par) =>
-            <Typography variant="body1">
+            <Typography variant="body1" key={par}>
                 {par}
             </Typography>
         );
@@ -152,7 +154,7 @@ export class Project extends React.Component {
     TechStack() {
         // Modify with Material components?
         let listStack = this.state.stack.map((tech) =>
-            <li>
+            <li key={tech}>
                 {tech}
             </li>
         );
@@ -176,7 +178,7 @@ export class Project extends React.Component {
 
     Milestones() {
         let listMilestones = this.state.milestones.map((milestone) =>
-            <li>
+            <li key={milestone}>
                 {milestone}
             </li>
         );
@@ -200,7 +202,7 @@ export class Project extends React.Component {
 
     Process() {
         let listProcess = this.state.process.map((step) =>
-            <li>
+            <li key={step}>
                 {step}
             </li>
         );
@@ -270,7 +272,7 @@ export class Project extends React.Component {
             <Grid id={`project-${this.state.id}`} class="project-page"
                     container
                     direction="column"
-                    spacing="4"
+                    spacing={4}
             >
                 <Grid item>
                     {this.Title()}
@@ -318,8 +320,8 @@ export function RoutesProjects(props) {
 
     const routes = props.projects.map((project) => {
         return (
-        <Route path={`${match.path}/${project.id}`}>
-            <Project project={project} />
+        <Route path={`${match.path}/${project.id}`} key={project.id}>
+            <Project project={project} key={project.id + 1000}/>
         </Route>
         )
     });
