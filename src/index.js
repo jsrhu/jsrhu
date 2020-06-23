@@ -56,7 +56,7 @@ import {
 } from "./projects";
 
 // ==== DATA IMPORTS ====
-import resumeFile from "./data/resume/Hu_Joshua-20_04_07.pdf";
+import resumeFile from "./data/resume/Hu_Joshua-20_06_17.pdf";
 import project_data from "./data/json/cards.json";
 
 // ==== IMAGE IMPORTS ====
@@ -170,17 +170,18 @@ const showcaseContent = (
         <Carousel fade interval="5000">
             <Carousel.Item>
                 <Link to="/portfolio?category=software"
-                        class="carousel-link"
+                        className="carousel-link"
                         underline="none"
                 >
                 <Figure id="carousel-software"
-                        class="carousel-image"
                 >
+                    <div className="carousel-image">
                     <Figure.Image
                         className="img-fluid"
                         src={showcaseSoftware}
                         alt="Software Project Portfolio"
                     />
+                    </div>
                 </Figure>
                 <Carousel.Caption>
                     <Typography variant="h2">
@@ -194,16 +195,18 @@ const showcaseContent = (
             </Carousel.Item>
             <Carousel.Item>
                 <Link to="/portfolio?category=hardware"
-                        class="carousel-link"
+                        className="carousel-link"
+                        underline="none"
                 >
                 <Figure id="carousel-hardware"
-                        class="carousel-image"
                 >
+                    <div className="carousel-image">
                     <Figure.Image
                         className="img-fluid"
                         src={showcaseHardware}
                         alt="Hardware Project Portfolio"
                     />
+                    </div>
                 </Figure>
                 <Carousel.Caption>
                     <Typography variant="h2">
@@ -217,16 +220,18 @@ const showcaseContent = (
             </Carousel.Item>
             <Carousel.Item>
                 <Link to="/portfolio?category=non-tech"
-                        class="carousel-link"
+                        className="carousel-link"
+                        underline="none"
                 >
                 <Figure id="carousel-nontech"
-                        class="carousel-image"
                 >
+                    <div className="carousel-image">
                         <Figure.Image
                             className="img-fluid"
                             src={showcaseNonTech}
                             alt="Non-Technical Project Portfolio"
                         />
+                    </div>
                 </Figure>
                 <Carousel.Caption>
                     <Typography variant="h2">
@@ -352,7 +357,7 @@ const progressList= (
 );
 
 const progressComment = (
-        <Typography id="progress-comment" variant="p">
+        <Typography id="progress-comment" variant="body1">
             If you feel like there are additional features I should incorporate or have feedback in general let me know <a href="#contact" className="text-decoration-none">here</a>.
         </Typography>
 );
@@ -377,7 +382,9 @@ function Progress(props) {
 
 // ==== RESUME COMPONENTS ====
 const resumeTitle = (
-    <div id="resume-title">
+    <div id="resume-title"
+            className="text-center"
+    >
         <Typography variant="h3">
             Resume
         </Typography>
@@ -409,9 +416,9 @@ class Resume extends React.Component {
         } if (768 < newWidth && newWidth <= 992) {
             scale = 1.00;
         } if (992 < newWidth && newWidth <= 1200) {
-            scale = 1.5;
+            scale = 1.25;
         } if (1200 < newWidth) {
-            scale = 2.0;
+            scale = 1.6;
         }
 
         this.setState({
@@ -439,19 +446,13 @@ class Resume extends React.Component {
         return (
             <section
                 id="resume"
-                className="text-center"
             >
                 {resumeTitle}
                 <Jumbotron style={{backgroundColor: "#cfd8dc"}}
                             fluid
                 >
-                <div id="resume-holder"
-                    style={{
-                        margin: "auto",
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                }}>
+                <div className="resume-holder"
+                >
                 <Document
                     file={this.state.file}
                     onLoadSuccess={this.onDocumentLoadSuccess}
@@ -571,34 +572,38 @@ function Home() {
 // ==== ROUTE COMPONENTS ====
 function Routes() {
     return (
-        <Router>
-            <Switch>
+        <div id="routes">
+            <AppBarGlobal />
 
-                <Route path={pathPortfolio}>
-                    <AppBarGlobal />
-                    <Portfolio
-                        cards={project_data.cards}
-                    />
-                    <FooterGlobal />
-                </Route>
+                <Switch>
 
-                <Route path={pathProjects}>
-                    <AppBarGlobal />
-                    <RoutesProjects
-                        cards={project_data.cards}
-                        projects={project_data.projects}
-                    />
-                    <FooterGlobal />
-                </ Route>
+                <Route path={pathProjects}
+                        render={(props) =>
+                                <RoutesProjects {...props}
+                                    projects={project_data.projects}
+                                />
+                        }
+                />
 
-                <Route path={pathHome}>
-                    <AppBarGlobal />
-                    <Home />
-                    <FooterGlobal />
-                </Route>
+                <Route path={pathPortfolio}
+                        render={(props) =>
+                                <Portfolio {...props}
+                                    cards={project_data.cards}
+                                />
+                        }
+                />
 
-            </Switch>
-        </Router>
+                <Route path={pathHome}
+                        render={(props) =>
+                                <Home {...props}
+                                />
+                        }
+                />
+                
+                </Switch>
+
+            <FooterGlobal />
+        </div>
     );
 }
 // implement a sub router
@@ -646,7 +651,9 @@ ReactDOM.render(
     <React.StrictMode>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
-            <App />
+            <Router>
+                <App />
+            </Router>
         </MuiThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')

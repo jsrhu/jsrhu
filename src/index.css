@@ -9,10 +9,12 @@
 }
 
 .resume-holder {
-  overflow: auto;
   margin: auto;
-  height: 80%;
-  max-height: 1300px;
-  width: 70%;
-  max-width: 920px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+  width: 90%;
 }
+/*
+*/

@@ -269,7 +269,7 @@ export class Project extends React.Component {
         </Grid>
         */
         return (
-            <Grid id={`project-${this.state.id}`} class="project-page"
+            <Grid id={`project-${this.state.id}`}
                     container
                     direction="column"
                     spacing={4}
@@ -320,15 +320,22 @@ export function RoutesProjects(props) {
 
     const routes = props.projects.map((project) => {
         return (
-        <Route path={`${match.path}/${project.id}`} key={project.id}>
-            <Project project={project} key={project.id + 1000}/>
-        </Route>
+        <Route path={`${match.path}/${project.id}`}
+                key={project.id}
+                render={(props) =>
+                        <Project {...props}
+                            project={project}
+                        />
+                }
+        />
         )
     });
 
     return (
-        <Switch>
+        <div className="project-page">
+            <Switch>
             {routes}
-        </Switch>
+            </Switch>
+        </div>
     )
 }

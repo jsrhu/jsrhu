@@ -1,5 +1,8 @@
-# OSX Hidden directory fil
+# OSX Hidden directory file
 .DS_Store
+
+# build files
+build/
 
 # Logs
 logs

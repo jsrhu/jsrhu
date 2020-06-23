@@ -2,7 +2,10 @@ import "./common.css";
 import "./portfolio.css";
 
 // ==== REACT LIBRARIES ====
-import React from 'react';
+import React from "react";
+import {
+    Link
+} from "react-router-dom";
 
 import {
     makeStyles,
@@ -12,13 +15,11 @@ import {
     Grid,
     ButtonGroup,
     Button,
-    IconButton,
     Tooltip,
     Card,
     CardHeader,
     CardContent,
     CardActions,
-    Collapse,
 } from "@material-ui/core";
 import {
     Computer as SoftwareIcon,
@@ -334,7 +335,7 @@ class GalleryCard extends React.Component {
                                     color="primary"
                                     fullWidth
                     >
-                        <Button href={`/projects/${this.state.id}`}>
+                        <Button component={Link} to={`/projects/${this.state.id}`}>
                             Details
                         </Button>
                         <Tooltip title="No Source Available"
@@ -355,7 +356,7 @@ class GalleryCard extends React.Component {
                                     color="primary"
                                     fullWidth
                     >
-                        <Button href={`/projects/${this.state.id}`}>
+                        <Button component={Link} to={`/projects/${this.state.id}`}>
                             Details
                         </Button>
                         <Button href={this.state.source} target="_blank">
